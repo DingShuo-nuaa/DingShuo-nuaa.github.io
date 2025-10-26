@@ -55,6 +55,7 @@
       <img alt="avatar" src="img/avatar.jpg" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect fill=\'%2394a3b8\' width=\'200\' height=\'200\'/%3E%3Ctext x=\'50%25\' y=\'55%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%230b0f1a\' font-family=\'sans-serif\' font-size=\'22\'%3EAvatar%3C/text%3E%3C/svg%3E'">
       <div>
         <h1>Shuo Ding</h1>
+        <p style="margin:.2rem 0 0 0;color:var(--muted)">Google Scholar: <a href="https://scholar.google.com/citations?user=Wul05rEAAAAJ">https://scholar.google.com/citations?user=Wul05rEAAAAJ</a></p>
         <p>Professor @ Nanjing University of Aeronautics and Astronautics (College of Mechanical and Electrical Engineering). Research: <strong>exoskeletons</strong>, <strong>soft robots</strong>, <strong>humanoid robots</strong>. Email: <a href="mailto:dingshuo@nuaa.edu.cn">dingshuo@nuaa.edu.cn</a></p>
         <nav>
           <a href="#news">News</a>
@@ -68,13 +69,13 @@
 
     <!-- ====== News ====== -->
     <section id="news">
-      <h2>News</h2>
+      <h2>Experience</h2>
       <ul class="news" id="news-list"></ul>
     </section>
 
     <!-- ====== Publications ====== -->
     <section id="pubs">
-      <h2>Publications <span class="pill" id="pub-count">0</span></h2>
+      <h2>Publications (Selected) <span class="pill" id="pub-count">0</span></h2>
       <div id="pub-list"></div>
     </section>
 
@@ -100,39 +101,14 @@
   <!-- ====== Inline data (edit these blocks to manage your site) ====== -->
   <script type="application/json" id="news-data">{
   "items": [
-    {"date": "2025-10-01", "text": "Co-chaired sessions at 2025 IEEE/ASME AIM."},
-    {"date": "2024-07-01", "text": "Joined NUAA as Professor (College of Mechanical and Electrical Engineering)."},
-    {"date": "2024-03-01", "text": "Nature Communications paper on robust strain sensors published."},
-    {"date": "2020-02-01", "text": "Started as Research Fellow at NUS Biorobotics Lab (PI: Prof. Haoyong Yu)."}
+    {"date": "2024-07-01", "text": "Professor, Nanjing University of Aeronautics and Astronautics (NUAA), College of Mechanical and Electrical Engineering."},
+    {"date": "2020-02-01", "text": "Research Fellow, National University of Singapore (NUS), Biorobotics Lab. PI: Prof. Haoyong YU."},
+    {"date": "2013-09-01", "text": "Ph.D. in Mechatronic Engineering, Zhejiang University (ZJU). Advisor: Prof. Huayong YANG."}
   ]
 }</script>
 
   <script type="application/json" id="pubs-data">{
   "entries": [
-    {
-      "title": "A novel underactuated mechanism to assist ankle joints in walking with a single series elastic actuator",
-      "authors": ["Chang, T.", "Chen, B.", "Yu, Y.", "Yao, J.", "Liu, K.", "Ding, L.", "...", "Ding, S#"],
-      "venue": "Mechanism and Machine Theory",
-      "year": 2025,
-      "links": {},
-      "bibtex": "@article{chang2025ankle,\n  title={A novel underactuated mechanism to assist ankle joints in walking with a single series elastic actuator},\n  author={Chang, T. and Chen, B. and Yu, Y. and Yao, J. and Liu, K. and Ding, L. and ... and Ding, S.},\n  journal={Mechanism and Machine Theory},\n  volume={215},\n  pages={106165},\n  year={2025}\n}"
-    },
-    {
-      "title": "Computational design of ultra-robust strain sensors for soft robot perception and autonomy",
-      "authors": ["Yang, H*", "Ding, S*", "Wang, J*", "et al."],
-      "venue": "Nature Communications",
-      "year": 2024,
-      "links": {},
-      "bibtex": "@article{yang2024robust,\n  title={Computational design of ultra-robust strain sensors for soft robot perception and autonomy},\n  author={Yang, H. and Ding, S. and Wang, J. and others},\n  journal={Nature Communications},\n  year={2024}\n}",
-      "highlight": true
-    },
-    {
-      "title": "Design and Control of a Novel Active Shoulder Exoskeleton for Overhead Work Assistance",
-      "authors": ["Ding, S.", "Narayan, A.", "Anaya-Reyes, F.", "et al."],
-      "venue": "IEEE/ASME Transactions on Mechatronics",
-      "year": 2024,
-      "links": {}
-    },
     {
       "title": "A Novel Back-support Exoskeleton with a Differential Series Elastic Actuator for Lifting Assistance",
       "authors": ["Ding, S.", "Reyes, F. A.", "Bhattacharya, S.", "et al."],
@@ -153,6 +129,21 @@
       "venue": "IEEE Transactions on Neural Systems and Rehabilitation Engineering",
       "year": 2023,
       "links": {}
+    },
+    {
+      "title": "Design and Control of a Novel Active Shoulder Exoskeleton for Overhead Work Assistance",
+      "authors": ["Ding, S.", "Narayan, A.", "Anaya-Reyes, F.", "et al."],
+      "venue": "IEEE/ASME Transactions on Mechatronics",
+      "year": 2024,
+      "links": {}
+    },
+    {
+      "title": "Computational design of ultra-robust strain sensors for soft robot perception and autonomy",
+      "authors": ["Yang, H*", "Ding, S*", "Wang, J*", "et al."],
+      "venue": "Nature Communications",
+      "year": 2024,
+      "links": {},
+      "highlight": true
     }
   ]
 }</script>
@@ -209,8 +200,7 @@
     }
     try{
       const data = JSON.parse($('#pubs-data').textContent).entries || [];
-      data.sort((a,b)=> (b.year||0)-(a.year||0));
-      const list = $('#pub-list');
+      data.sort((a,b)=> (a.year||0)-(b.year||0));const list = $('#pub-list');
       let idx = 1;
       for(const p of data){ list.appendChild(createPub(p, idx++)); }
       $('#pub-count').textContent = data.length;
