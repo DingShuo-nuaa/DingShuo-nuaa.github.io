@@ -101,9 +101,9 @@
   <!-- ====== Inline data (edit these blocks to manage your site) ====== -->
   <script type="application/json" id="news-data">{
   "items": [
-    {"date": "2024-07-01", "text": "Professor, Nanjing University of Aeronautics and Astronautics (NUAA), College of Mechanical and Electrical Engineering."},
-    {"date": "2020-02-01", "text": "Research Fellow, National University of Singapore (NUS), Biorobotics Lab. PI: Prof. Haoyong YU."},
-    {"date": "2013-09-01", "text": "Ph.D. in Mechatronic Engineering, Zhejiang University (ZJU). Advisor: Prof. Huayong YANG."}
+    {"date": "2024-07-01", "end": null, "text": "Professor, Nanjing University of Aeronautics and Astronautics (NUAA), College of Mechanical and Electrical Engineering."},
+    {"date": "2020-02-01", "end": "2024-05-31", "text": "Research Fellow, National University of Singapore (NUS), Biorobotics Lab. PI: Prof. Haoyong YU."},
+    {"date": "2013-09-01", "end": "2019-12-31", "text": "Ph.D. in Mechatronic Engineering, Zhejiang University (ZJU). Advisor: Prof. Huayong YANG."}
   ]
 }</script>
 
@@ -170,12 +170,15 @@
     try{
       const news = JSON.parse($('#news-data').textContent).items || [];
       const list = $('#news-list');
-      news.sort((a,b)=>new Date(b.date)-new Date(a.date));
+      news.sort((a,b)=> new Date(b.date)-new Date(a.date));
       for(const n of news){
         const li = document.createElement('li');
-        li.innerHTML = `<span class="meta">${fmt(n.date)}</span> — ${n.text}`;
+        const period = n.end ? `${fmt(n.date)} – ${fmt(n.end)}` : `${fmt(n.date)} – Present`;
+        li.innerHTML = `<span class="meta">${period}</span> — ${n.text}`;
         list.appendChild(li);
       }
+      if(!news.length){ list.innerHTML = '<li>No updates yet.</li>'; }
+    }catch(e){ console.warn('News parse error', e); }
       if(!news.length){ list.innerHTML = '<li>No updates yet.</li>'; }
     }catch(e){ console.warn('News parse error', e); }
 
