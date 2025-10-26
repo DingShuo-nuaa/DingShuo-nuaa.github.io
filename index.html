@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Your Name — Homepage</title>
-  <meta name="description" content="Personal academic homepage of Your Name: research, publications, projects, and contact." />
+  <title>Shuo Ding — Homepage</title>
+  <meta name="description" content="Personal academic homepage of Shuo Ding: research, publications, projects, and contact." />
   <style>
     /* ====== Minimal, clean, responsive CSS (no external deps) ====== */
     :root{
@@ -54,8 +54,8 @@
     <header>
       <img alt="avatar" src="img/avatar.jpg" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect fill=\'%2394a3b8\' width=\'200\' height=\'200\'/%3E%3Ctext x=\'50%25\' y=\'55%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%230b0f1a\' font-family=\'sans-serif\' font-size=\'22\'%3EAvatar%3C/text%3E%3C/svg%3E'">
       <div>
-        <h1>Your Name</h1>
-        <p>Job Title @ Affiliation · Research in <strong>Robotics</strong>, <strong>RL</strong>, <strong>Control</strong>. Email: <a href="mailto:you@email.com">you@email.com</a></p>
+        <h1>Shuo Ding</h1>
+        <p>Professor @ Nanjing University of Aeronautics and Astronautics (College of Mechanical and Electrical Engineering). Research: <strong>exoskeletons</strong>, <strong>soft robots</strong>, <strong>humanoid robots</strong>. Email: <a href="mailto:dingshuo@nuaa.edu.cn">dingshuo@nuaa.edu.cn</a></p>
         <nav>
           <a href="#news">News</a>
           <a href="#pubs">Publications</a>
@@ -87,67 +87,83 @@
     <!-- ====== Contact ====== -->
     <section id="contact">
       <h2>Contact</h2>
-      <p>Email: <a href="mailto:you@email.com">you@email.com</a> · GitHub: <a href="https://github.com/yourname">@yourname</a> · Google Scholar: <a href="#">profile</a></p>
+      <p>Email: <a href="mailto:dingshuo@nuaa.edu.cn">dingshuo@nuaa.edu.cn</a> · Phone: +86-150-6880-5615 · GitHub: <a href="https://github.com/yourname">@yourname</a> · Google Scholar: <a href="https://scholar.google.com/citations?user=Wul05rEAAAAJ">profile</a></p>
     </section>
 
     <!-- ====== Footer ====== -->
     <div class="footer">
-      <span>© <span id="year"></span> Your Name. Last updated <span id="updated"></span>.</span>
+      <span>© <span id="year"></span> Shuo Ding. Last updated <span id="updated"></span>.</span>
       <span class="right">Built with plain HTML/CSS/JS on GitHub Pages.</span>
     </div>
   </div>
 
   <!-- ====== Inline data (edit these blocks to manage your site) ====== -->
   <script type="application/json" id="news-data">{
-    "items": [
-      {"date": "2025-10-01", "text": "One paper accepted to ICRA 2026."},
-      {"date": "2025-08-15", "text": "Released dataset for soft-arm manipulation."}
-    ]
-  }</script>
+  "items": [
+    {"date": "2025-10-01", "text": "Co-chaired sessions at 2025 IEEE/ASME AIM."},
+    {"date": "2024-07-01", "text": "Joined NUAA as Professor (College of Mechanical and Electrical Engineering)."},
+    {"date": "2024-03-01", "text": "Nature Communications paper on robust strain sensors published."},
+    {"date": "2020-02-01", "text": "Started as Research Fellow at NUS Biorobotics Lab (PI: Prof. Haoyong Yu)."}
+  ]
+}</script>
 
   <script type="application/json" id="pubs-data">{
-    "entries": [
-      {
-        "title": "Adaptive Skill Acquisition for Flexible Robots",
-        "authors": ["Your Name*", "Coauthor A", "Coauthor B"],
-        "venue": "ICRA 2026",
-        "year": 2026,
-        "links": {
-          "pdf": "papers/ASAP-flex.pdf",
-          "project": "projects/ASAP-flex/",
-          "code": "https://github.com/yourname/asap-flex",
-          "video": "https://youtu.be/xxxx"
-        },
-        "bibtex": "@inproceedings{you2026asap,\n  title={Adaptive Skill Acquisition for Flexible Robots},\n  author={You, Your and A, Coauthor and B, Coauthor},\n  booktitle={ICRA},\n  year={2026}\n}",
-        "highlight": true
-      },
-      {
-        "title": "Learning Input Shaping with Model-Free RL",
-        "authors": ["Your Name", "Coauthor C"],
-        "venue": "RAL",
-        "year": 2025,
-        "links": {"pdf": "papers/rl-input-shaping.pdf"},
-        "bibtex": "@article{you2025input,\n  title={Learning Input Shaping with Model-Free RL},\n  author={You, Your and C, Coauthor},\n  journal={IEEE Robotics and Automation Letters},\n  year={2025}\n}"
-      }
-    ]
-  }</script>
+  "entries": [
+    {
+      "title": "A novel underactuated mechanism to assist ankle joints in walking with a single series elastic actuator",
+      "authors": ["Chang, T.", "Chen, B.", "Yu, Y.", "Yao, J.", "Liu, K.", "Ding, L.", "...", "Ding, S#"],
+      "venue": "Mechanism and Machine Theory",
+      "year": 2025,
+      "links": {},
+      "bibtex": "@article{chang2025ankle,\n  title={A novel underactuated mechanism to assist ankle joints in walking with a single series elastic actuator},\n  author={Chang, T. and Chen, B. and Yu, Y. and Yao, J. and Liu, K. and Ding, L. and ... and Ding, S.},\n  journal={Mechanism and Machine Theory},\n  volume={215},\n  pages={106165},\n  year={2025}\n}"
+    },
+    {
+      "title": "Computational design of ultra-robust strain sensors for soft robot perception and autonomy",
+      "authors": ["Yang, H*", "Ding, S*", "Wang, J*", "et al."],
+      "venue": "Nature Communications",
+      "year": 2024,
+      "links": {},
+      "bibtex": "@article{yang2024robust,\n  title={Computational design of ultra-robust strain sensors for soft robot perception and autonomy},\n  author={Yang, H. and Ding, S. and Wang, J. and others},\n  journal={Nature Communications},\n  year={2024}\n}",
+      "highlight": true
+    },
+    {
+      "title": "Design and Control of a Novel Active Shoulder Exoskeleton for Overhead Work Assistance",
+      "authors": ["Ding, S.", "Narayan, A.", "Anaya-Reyes, F.", "et al."],
+      "venue": "IEEE/ASME Transactions on Mechatronics",
+      "year": 2024,
+      "links": {}
+    },
+    {
+      "title": "A Novel Back-support Exoskeleton with a Differential Series Elastic Actuator for Lifting Assistance",
+      "authors": ["Ding, S.", "Reyes, F. A.", "Bhattacharya, S.", "et al."],
+      "venue": "IEEE Transactions on Robotics",
+      "year": 2023,
+      "links": {}
+    },
+    {
+      "title": "A Lightweight Shoulder Exoskeleton with a Series Elastic Actuator for Assisting Overhead Work",
+      "authors": ["Ding, S.", "Anaya-Reyes, F.", "Narayan, A.", "et al."],
+      "venue": "IEEE/ASME Transactions on Mechatronics",
+      "year": 2023,
+      "links": {}
+    },
+    {
+      "title": "A Novel Passive Back-support Exoskeleton with a Spring-cable-differential for Lifting Assistance",
+      "authors": ["Ding, S.", "Reyes, F. A.", "Bhattacharya, S.", "et al."],
+      "venue": "IEEE Transactions on Neural Systems and Rehabilitation Engineering",
+      "year": 2023,
+      "links": {}
+    }
+  ]
+}</script>
 
   <script type="application/json" id="projects-data">{
-    "items": [
-      {
-        "title": "ASAP-Flex",
-        "thumb": "projects/ASAP-flex/cover.jpg",
-        "desc": "Imitation + RL for soft arms.",
-        "href": "projects/ASAP-flex/"
-      },
-      {
-        "title": "ExoAssist",
-        "thumb": "projects/ExoAssist/cover.jpg",
-        "desc": "Assistive exoskeleton controller.",
-        "href": "projects/ExoAssist/"
-      }
-    ]
-  }</script>
+  "items": [
+    {"title": "Active Shoulder Exoskeleton", "thumb": "projects/ActiveShoulder/cover.jpg", "desc": "Design & control for overhead work assistance.", "href": "projects/ActiveShoulder/"},
+    {"title": "Back-support Exoskeleton (DSEA)", "thumb": "projects/DSEA-Backsupport/cover.jpg", "desc": "Differential series elastic actuator for lifting.", "href": "projects/DSEA-Backsupport/"},
+    {"title": "Soft Robot Strain Sensing", "thumb": "projects/SoftStrain/cover.jpg", "desc": "Computational design of ultra-robust sensors.", "href": "projects/SoftStrain/"}
+  ]
+}</script>
 
   <!-- ====== JS rendering (no frameworks) ====== -->
   <script>
