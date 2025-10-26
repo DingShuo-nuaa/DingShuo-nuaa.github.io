@@ -200,7 +200,7 @@
     }
     try{
       const data = JSON.parse($('#pubs-data').textContent).entries || [];
-      data.sort((a,b)=> (a.year||0)-(b.year||0));const list = $('#pub-list');
+      data.sort((a,b)=> (b.year||0)-(a.year||0));const list = $('#pub-list');
       let idx = 1;
       for(const p of data){ list.appendChild(createPub(p, idx++)); }
       $('#pub-count').textContent = data.length;
