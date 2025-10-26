@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Your Name — Homepage</title>
+  <meta name="description" content="Personal academic homepage of Your Name: research, publications, projects, and contact." />
+  <style>
+    /* ====== Minimal, clean, responsive CSS (no external deps) ====== */
+    :root{
+      --bg:#ffffff;--fg:#0f172a;--sub:#475569;--muted:#94a3b8;--card:#f8fafc;--link:#2563eb;--ring:#93c5fd;
+      --mono: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+    }
+    @media (prefers-color-scheme: dark){
+      :root{--bg:#0b0f1a;--fg:#e5e7eb;--sub:#cbd5e1;--muted:#64748b;--card:#0f172a;--link:#60a5fa;--ring:#1d4ed8}
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.65}
+    a{color:var(--link);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:960px;margin:0 auto;padding:24px}
+    header{display:flex;gap:20px;align-items:center;padding:28px 0 12px 0;border-bottom:1px solid rgba(148,163,184,.25)}
+    header img{width:88px;height:88px;border-radius:50%;object-fit:cover;border:2px solid rgba(148,163,184,.35)}
+    header h1{margin:0;font-size:1.75rem}
+    header p{margin:.25rem 0 0 0;color:var(--sub)}
+    nav{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+    nav a{padding:6px 10px;border:1px solid rgba(148,163,184,.35);border-radius:999px}
+    section{padding:28px 0;border-bottom:1px dashed rgba(148,163,184,.2)}
+    h2{margin:0 0 12px 0;font-size:1.25rem;border-left:4px solid var(--link);padding-left:10px}
+    .news li{margin-bottom:6px}
+    .pill{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;font-size:.8rem;background:var(--card);border:1px solid rgba(148,163,184,.35)}
+    .pub{padding:14px;border:1px solid rgba(148,163,184,.35);border-radius:12px;background:var(--card);margin-bottom:12px}
+    .pub .title{font-weight:600}
+    .pub .authors{color:var(--sub)}
+    .pub .meta{color:var(--muted);font-size:.93rem}
+    .pub .links a{margin-right:10px}
+    .toggle{cursor:pointer;color:var(--link);font-family:var(--mono);font-size:.9rem}
+    .code{font-family:var(--mono);white-space:pre-wrap;overflow:auto;border:1px solid rgba(148,163,184,.35);padding:10px;border-radius:8px;background:transparent}
+    .grid{display:grid;gap:14px;grid-template-columns:repeat(1,minmax(0,1fr))}
+    @media(min-width:640px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(min-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    .card{border:1px solid rgba(148,163,184,.35);border-radius:14px;overflow:hidden;background:var(--card)}
+    .card img{width:100%;height:150px;object-fit:cover}
+    .card .body{padding:12px}
+    .footer{padding:24px 0;color:var(--muted);font-size:.9rem}
+    .kbd{font-family:var(--mono);background:var(--card);border:1px solid rgba(148,163,184,.35);border-radius:6px;padding:1px 6px}
+    .right{float:right}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- ====== Header / Bio ====== -->
+    <header>
+      <img alt="avatar" src="img/avatar.jpg" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect fill=\'%2394a3b8\' width=\'200\' height=\'200\'/%3E%3Ctext x=\'50%25\' y=\'55%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%230b0f1a\' font-family=\'sans-serif\' font-size=\'22\'%3EAvatar%3C/text%3E%3C/svg%3E'">
+      <div>
+        <h1>Your Name</h1>
+        <p>Job Title @ Affiliation · Research in <strong>Robotics</strong>, <strong>RL</strong>, <strong>Control</strong>. Email: <a href="mailto:you@email.com">you@email.com</a></p>
+        <nav>
+          <a href="#news">News</a>
+          <a href="#pubs">Publications</a>
+          <a href="#projects">Projects</a>
+          <a href="cv/CV.pdf">CV</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ====== News ====== -->
+    <section id="news">
+      <h2>News</h2>
+      <ul class="news" id="news-list"></ul>
+    </section>
+
+    <!-- ====== Publications ====== -->
+    <section id="pubs">
+      <h2>Publications <span class="pill" id="pub-count">0</span></h2>
+      <div id="pub-list"></div>
+    </section>
+
+    <!-- ====== Projects Grid ====== -->
+    <section id="projects">
+      <h2>Selected Projects</h2>
+      <div class="grid" id="proj-grid"></div>
+    </section>
+
+    <!-- ====== Contact ====== -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:you@email.com">you@email.com</a> · GitHub: <a href="https://github.com/yourname">@yourname</a> · Google Scholar: <a href="#">profile</a></p>
+    </section>
+
+    <!-- ====== Footer ====== -->
+    <div class="footer">
+      <span>© <span id="year"></span> Your Name. Last updated <span id="updated"></span>.</span>
+      <span class="right">Built with plain HTML/CSS/JS on GitHub Pages.</span>
+    </div>
+  </div>
+
+  <!-- ====== Inline data (edit these blocks to manage your site) ====== -->
+  <script type="application/json" id="news-data">{
+    "items": [
+      {"date": "2025-10-01", "text": "One paper accepted to ICRA 2026."},
+      {"date": "2025-08-15", "text": "Released dataset for soft-arm manipulation."}
+    ]
+  }</script>
+
+  <script type="application/json" id="pubs-data">{
+    "entries": [
+      {
+        "title": "Adaptive Skill Acquisition for Flexible Robots",
+        "authors": ["Your Name*", "Coauthor A", "Coauthor B"],
+        "venue": "ICRA 2026",
+        "year": 2026,
+        "links": {
+          "pdf": "papers/ASAP-flex.pdf",
+          "project": "projects/ASAP-flex/",
+          "code": "https://github.com/yourname/asap-flex",
+          "video": "https://youtu.be/xxxx"
+        },
+        "bibtex": "@inproceedings{you2026asap,\n  title={Adaptive Skill Acquisition for Flexible Robots},\n  author={You, Your and A, Coauthor and B, Coauthor},\n  booktitle={ICRA},\n  year={2026}\n}",
+        "highlight": true
+      },
+      {
+        "title": "Learning Input Shaping with Model-Free RL",
+        "authors": ["Your Name", "Coauthor C"],
+        "venue": "RAL",
+        "year": 2025,
+        "links": {"pdf": "papers/rl-input-shaping.pdf"},
+        "bibtex": "@article{you2025input,\n  title={Learning Input Shaping with Model-Free RL},\n  author={You, Your and C, Coauthor},\n  journal={IEEE Robotics and Automation Letters},\n  year={2025}\n}"
+      }
+    ]
+  }</script>
+
+  <script type="application/json" id="projects-data">{
+    "items": [
+      {
+        "title": "ASAP-Flex",
+        "thumb": "projects/ASAP-flex/cover.jpg",
+        "desc": "Imitation + RL for soft arms.",
+        "href": "projects/ASAP-flex/"
+      },
+      {
+        "title": "ExoAssist",
+        "thumb": "projects/ExoAssist/cover.jpg",
+        "desc": "Assistive exoskeleton controller.",
+        "href": "projects/ExoAssist/"
+      }
+    ]
+  }</script>
+
+  <!-- ====== JS rendering (no frameworks) ====== -->
+  <script>
+    const $ = sel => document.querySelector(sel);
+    const $$ = sel => Array.from(document.querySelectorAll(sel));
+    const fmt = d => new Date(d).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});
+
+    // Footer dates
+    $('#year').textContent = new Date().getFullYear();
+    $('#updated').textContent = new Date(document.lastModified).toLocaleDateString();
+
+    // News
+    try{
+      const news = JSON.parse($('#news-data').textContent).items || [];
+      const list = $('#news-list');
+      news.sort((a,b)=>new Date(b.date)-new Date(a.date));
+      for(const n of news){
+        const li = document.createElement('li');
+        li.innerHTML = `<span class="meta">${fmt(n.date)}</span> — ${n.text}`;
+        list.appendChild(li);
+      }
+      if(!news.length){ list.innerHTML = '<li>No updates yet.</li>'; }
+    }catch(e){ console.warn('News parse error', e); }
+
+    // Publications
+    function createPub(p, idx){
+      const wrap = document.createElement('div');
+      wrap.className = 'pub';
+      wrap.innerHTML = `
+        <div class="title">${idx}. ${p.title}${p.highlight? ' <span class="pill">highlight</span>': ''}</div>
+        <div class="authors">${(p.authors||[]).join(', ')}</div>
+        <div class="meta">${[p.venue,p.year].filter(Boolean).join(', ')}</div>
+        <div class="links">
+          ${p.links?.pdf? `<a href="${p.links.pdf}">PDF</a>`:''}
+          ${p.links?.project? `<a href="${p.links.project}">Project</a>`:''}
+          ${p.links?.code? `<a href="${p.links.code}">Code</a>`:''}
+          ${p.links?.video? `<a href="${p.links.video}">Video</a>`:''}
+          ${p.bibtex? `<span class="toggle" data-key="bib-${idx}">BibTeX ▾</span>`:''}
+        </div>
+        ${p.bibtex? `<div id="bib-${idx}" class="code" style="display:none">${p.bibtex}</div>`:''}
+      `;
+      return wrap;
+    }
+    try{
+      const data = JSON.parse($('#pubs-data').textContent).entries || [];
+      data.sort((a,b)=> (b.year||0)-(a.year||0));
+      const list = $('#pub-list');
+      let idx = 1;
+      for(const p of data){ list.appendChild(createPub(p, idx++)); }
+      $('#pub-count').textContent = data.length;
+      list.addEventListener('click', (e)=>{
+        if(e.target.matches('.toggle')){
+          const id = e.target.getAttribute('data-key');
+          const box = document.getElementById(id);
+          if(box){ box.style.display = (box.style.display==='none')? 'block':'none'; }
+        }
+      });
+    }catch(e){ console.warn('Pubs parse error', e); }
+
+    // Projects grid
+    try{
+      const items = JSON.parse($('#projects-data').textContent).items || [];
+      const grid = $('#proj-grid');
+      for(const pr of items){
+        const card = document.createElement('a');
+        card.href = pr.href || '#';
+        card.className = 'card';
+        card.innerHTML = `
+          <img alt="${pr.title}" src="${pr.thumb||''}" onerror="this.style.display='none'">
+          <div class="body">
+            <div style="font-weight:600">${pr.title}</div>
+            <div style="color:var(--sub)">${pr.desc||''}</div>
+          </div>`;
+        grid.appendChild(card);
+      }
+      if(!items.length){ grid.innerHTML = '<div class="card"><div class="body">Add projects in the data block.</div></div>'; }
+    }catch(e){ console.warn('Projects parse error', e); }
+  </script>
+</body>
+</html>
