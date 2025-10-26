@@ -98,8 +98,14 @@
     </div>
   </div>
 
-  <!-- ====== Inline data (edit these blocks to manage your site) ====== -->
-  <script type="application/json" id="news-data">{
+  <!-- ====== Data sources ======
+  Preferred: create external JSON files under /data and the page will load them automatically:
+    /data/experience.json, /data/pubs.json, /data/projects.json
+  If those files are missing, the inline fallback below will be used.
+-->
+
+<!-- Fallback: Experience (timeline) -->
+<script type="application/json" id="news-data">{
   "items": [
     {"date": "2024-07-01", "end": null, "text": "Professor, Nanjing University of Aeronautics and Astronautics (NUAA), College of Mechanical and Electrical Engineering."},
     {"date": "2020-02-01", "end": "2024-05-31", "text": "Research Fellow, National University of Singapore (NUS), Biorobotics Lab. PI: Prof. Haoyong YU."},
@@ -107,106 +113,97 @@
   ]
 }</script>
 
-  <script type="application/json" id="pubs-data">{
+<!-- Fallback: Publications (Selected) -->
+<script type="application/json" id="pubs-data">{
   "entries": [
-    {
-      "title": "A Novel Back-support Exoskeleton with a Differential Series Elastic Actuator for Lifting Assistance",
-      "authors": ["Ding, S.", "Reyes, F. A.", "Bhattacharya, S.", "et al."],
-      "venue": "IEEE Transactions on Robotics",
-      "year": 2023,
-      "links": {}
-    },
-    {
-      "title": "A Lightweight Shoulder Exoskeleton with a Series Elastic Actuator for Assisting Overhead Work",
-      "authors": ["Ding, S.", "Anaya-Reyes, F.", "Narayan, A.", "et al."],
-      "venue": "IEEE/ASME Transactions on Mechatronics",
-      "year": 2023,
-      "links": {}
-    },
-    {
-      "title": "A Novel Passive Back-support Exoskeleton with a Spring-cable-differential for Lifting Assistance",
-      "authors": ["Ding, S.", "Reyes, F. A.", "Bhattacharya, S.", "et al."],
-      "venue": "IEEE Transactions on Neural Systems and Rehabilitation Engineering",
-      "year": 2023,
-      "links": {}
-    },
-    {
-      "title": "Design and Control of a Novel Active Shoulder Exoskeleton for Overhead Work Assistance",
-      "authors": ["Ding, S.", "Narayan, A.", "Anaya-Reyes, F.", "et al."],
-      "venue": "IEEE/ASME Transactions on Mechatronics",
-      "year": 2024,
-      "links": {}
-    },
-    {
-      "title": "Computational design of ultra-robust strain sensors for soft robot perception and autonomy",
-      "authors": ["Yang, H*", "Ding, S*", "Wang, J*", "et al."],
-      "venue": "Nature Communications",
-      "year": 2024,
-      "links": {},
-      "highlight": true
-    }
+    {"title":"Computational design of ultra-robust strain sensors for soft robot perception and autonomy","authors":["Yang, H*","Ding, S*","Wang, J*","et al."],"venue":"Nature Communications","year":2024,"links":{},"highlight":true},
+    {"title":"Design and Control of a Novel Active Shoulder Exoskeleton for Overhead Work Assistance","authors":["Ding, S.","Narayan, A.","Anaya-Reyes, F.","et al."],"venue":"IEEE/ASME Transactions on Mechatronics","year":2024,"links":{}},
+    {"title":"A Novel Back-support Exoskeleton with a Differential Series Elastic Actuator for Lifting Assistance","authors":["Ding, S.","Reyes, F. A.","Bhattacharya, S.","et al."],"venue":"IEEE Transactions on Robotics","year":2023,"links":{}},
+    {"title":"A Lightweight Shoulder Exoskeleton with a Series Elastic Actuator for Assisting Overhead Work","authors":["Ding, S.","Anaya-Reyes, F.","Narayan, A.","et al."],"venue":"IEEE/ASME Transactions on Mechatronics","year":2023,"links":{}},
+    {"title":"A Novel Passive Back-support Exoskeleton with a Spring-cable-differential for Lifting Assistance","authors":["Ding, S.","Reyes, F. A.","Bhattacharya, S.","et al."],"venue":"IEEE Transactions on Neural Systems and Rehabilitation Engineering","year":2023,"links":{}}
   ]
 }</script>
 
-  <script type="application/json" id="projects-data">{
+<!-- Fallback: Projects -->
+<script type="application/json" id="projects-data">{
   "items": [
-    {"title": "Active Shoulder Exoskeleton", "thumb": "projects/ActiveShoulder/cover.jpg", "desc": "Design & control for overhead work assistance.", "href": "projects/ActiveShoulder/"},
-    {"title": "Back-support Exoskeleton (DSEA)", "thumb": "projects/DSEA-Backsupport/cover.jpg", "desc": "Differential series elastic actuator for lifting.", "href": "projects/DSEA-Backsupport/"},
-    {"title": "Soft Robot Strain Sensing", "thumb": "projects/SoftStrain/cover.jpg", "desc": "Computational design of ultra-robust sensors.", "href": "projects/SoftStrain/"}
+    {"title":"Active Shoulder Exoskeleton","thumb":"projects/ActiveShoulder/cover.jpg","desc":"Design & control for overhead work assistance.","href":"projects/ActiveShoulder/"},
+    {"title":"Back-support Exoskeleton (DSEA)","thumb":"projects/DSEA-Backsupport/cover.jpg","desc":"Differential series elastic actuator for lifting.","href":"projects/DSEA-Backsupport/"},
+    {"title":"Soft Robot Strain Sensing","thumb":"projects/SoftStrain/cover.jpg","desc":"Computational design of ultra-robust sensors.","href":"projects/SoftStrain/"}
   ]
 }</script>
 
-  <!-- ====== JS rendering (no frameworks) ====== -->
+<!-- ====== JS rendering (no frameworks) ====== -->
   <script>
     const $ = sel => document.querySelector(sel);
-    const $$ = sel => Array.from(document.querySelectorAll(sel));
     const fmt = d => new Date(d).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});
+
+    // Generic loader: try external /data/*.json, else fallback to inline <script type="application/json" id="...">
+    async function loadJSON(inlineId, externalPath){
+      try{
+        const r = await fetch(externalPath, {cache:'no-store'});
+        if(r.ok){ return await r.json(); }
+      }catch(e){ /* ignore and fallback */ }
+      const el = document.getElementById(inlineId);
+      if(!el) return null;
+      try{ return JSON.parse(el.textContent); }catch(e){ return null; }
+    }
 
     // Footer dates
     $('#year').textContent = new Date().getFullYear();
     $('#updated').textContent = new Date(document.lastModified).toLocaleDateString();
 
-    // News
-    try{
-      const news = JSON.parse($('#news-data').textContent).items || [];
+    // ====== Experience (a.k.a. news timeline) ======
+    (async function(){
+      const data = await loadJSON('news-data','/data/experience.json');
       const list = $('#news-list');
-      news.sort((a,b)=> new Date(b.date)-new Date(a.date));
-      for(const n of news){
+      if(!data || !Array.isArray(data.items)){
+        list.innerHTML = '<li style="color:var(--muted)">No experience entries yet.</li>';
+        return;
+      }
+      const items = data.items.slice().sort((a,b)=> new Date(b.date)-new Date(a.date));
+      for(const n of items){
+        const start = n.date ? fmt(n.date) : '';
+        const end = n.end ? fmt(n.end) : 'Present';
+        const period = (start||end) ? `${start} – ${end}` : '';
         const li = document.createElement('li');
-        const period = n.end ? `${fmt(n.date)} – ${fmt(n.end)}` : `${fmt(n.date)} – Present`;
-        li.innerHTML = `<span class="meta">${period}</span> — ${n.text}`;
+        li.innerHTML = `<span class="meta">${period}</span> — ${n.text||''}`;
         list.appendChild(li);
       }
-      if(!news.length){ list.innerHTML = '<li>No updates yet.</li>'; }
-    }catch(e){ console.warn('News parse error', e); }
-      if(!news.length){ list.innerHTML = '<li>No updates yet.</li>'; }
-    }catch(e){ console.warn('News parse error', e); }
+    })();
 
-    // Publications
-    function createPub(p, idx){
-      const wrap = document.createElement('div');
-      wrap.className = 'pub';
-      wrap.innerHTML = `
-        <div class="title">${idx}. ${p.title}${p.highlight? ' <span class="pill">highlight</span>': ''}</div>
-        <div class="authors">${(p.authors||[]).join(', ')}</div>
-        <div class="meta">${[p.venue,p.year].filter(Boolean).join(', ')}</div>
-        <div class="links">
-          ${p.links?.pdf? `<a href="${p.links.pdf}">PDF</a>`:''}
-          ${p.links?.project? `<a href="${p.links.project}">Project</a>`:''}
-          ${p.links?.code? `<a href="${p.links.code}">Code</a>`:''}
-          ${p.links?.video? `<a href="${p.links.video}">Video</a>`:''}
-          ${p.bibtex? `<span class="toggle" data-key="bib-${idx}">BibTeX ▾</span>`:''}
-        </div>
-        ${p.bibtex? `<div id="bib-${idx}" class="code" style="display:none">${p.bibtex}</div>`:''}
-      `;
-      return wrap;
-    }
-    try{
-      const data = JSON.parse($('#pubs-data').textContent).entries || [];
-      data.sort((a,b)=> (b.year||0)-(a.year||0));const list = $('#pub-list');
+    // ====== Publications (Selected) ======
+    (async function(){
+      const data = await loadJSON('pubs-data','/data/pubs.json');
+      const list = document.getElementById('pub-list');
+      if(!data || !Array.isArray(data.entries)){
+        list.innerHTML = '<div class="pub">No publications yet.</div>';
+        $('#pub-count').textContent = '0';
+        return;
+      }
+      const entries = data.entries.slice().sort((a,b)=> (b.year||0)-(a.year||0));
+      $('#pub-count').textContent = entries.length;
       let idx = 1;
-      for(const p of data){ list.appendChild(createPub(p, idx++)); }
-      $('#pub-count').textContent = data.length;
+      for(const p of entries){
+        const wrap = document.createElement('div');
+        wrap.className = 'pub';
+        const links = [];
+        if(p.links?.pdf)   links.push(`<a href="${p.links.pdf}">PDF</a>`);
+        if(p.links?.doi)   links.push(`<a href="https://doi.org/${p.links.doi}">DOI</a>`);
+        if(p.links?.project) links.push(`<a href="${p.links.project}">Project</a>`);
+        if(p.links?.code)  links.push(`<a href="${p.links.code}">Code</a>`);
+        if(p.links?.video) links.push(`<a href="${p.links.video}">Video</a>`);
+        const bibId = `bib-${idx}`;
+        wrap.innerHTML = `
+          <div class="title">${p.title||''} ${p.highlight? '<span class="pill">highlight</span>':''}</div>
+          <div class="authors">${(p.authors||[]).join(', ')}</div>
+          <div class="meta">${[p.venue,p.year].filter(Boolean).join(', ')}</div>
+          <div class="links">${links.join(' ')} ${p.bibtex? `<span class="toggle" data-key="${bibId}">BibTeX ▾</span>`:''}</div>
+          ${p.bibtex? `<div id="${bibId}" class="code" style="display:none">${p.bibtex}</div>`:''}
+        `;
+        list.appendChild(wrap);
+        idx++;
+      }
       list.addEventListener('click', (e)=>{
         if(e.target.matches('.toggle')){
           const id = e.target.getAttribute('data-key');
@@ -214,26 +211,29 @@
           if(box){ box.style.display = (box.style.display==='none')? 'block':'none'; }
         }
       });
-    }catch(e){ console.warn('Pubs parse error', e); }
+    })();
 
-    // Projects grid
-    try{
-      const items = JSON.parse($('#projects-data').textContent).items || [];
-      const grid = $('#proj-grid');
-      for(const pr of items){
+    // ====== Projects ======
+    (async function(){
+      const data = await loadJSON('projects-data','/data/projects.json');
+      const grid = document.getElementById('proj-grid');
+      if(!data || !Array.isArray(data.items) || !data.items.length){
+        grid.innerHTML = '<div class="card"><div class="body">Add projects in /data/projects.json</div></div>';
+        return;
+      }
+      for(const pr of data.items){
         const card = document.createElement('a');
         card.href = pr.href || '#';
         card.className = 'card';
         card.innerHTML = `
-          <img alt="${pr.title}" src="${pr.thumb||''}" onerror="this.style.display='none'">
+          <img alt="${pr.title||''}" src="${pr.thumb||''}" loading="lazy" onerror="this.style.display='none'">
           <div class="body">
-            <div style="font-weight:600">${pr.title}</div>
+            <div style="font-weight:600">${pr.title||''}</div>
             <div style="color:var(--sub)">${pr.desc||''}</div>
           </div>`;
         grid.appendChild(card);
       }
-      if(!items.length){ grid.innerHTML = '<div class="card"><div class="body">Add projects in the data block.</div></div>'; }
-    }catch(e){ console.warn('Projects parse error', e); }
+    })();
   </script>
 </body>
 </html>
