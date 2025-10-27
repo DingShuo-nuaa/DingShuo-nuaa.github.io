@@ -61,7 +61,7 @@
           📧 Email: <a href="mailto:dingshuo@nuaa.edu.cn">dingshuo@nuaa.edu.cn</a>
         </p>
         <nav>
-          <a href="#news">Experience</a>
+          <a href="#experience">Experience</a>
           <a href="#pubs">Publications</a>
           <a href="#projects">Projects</a>
           <a href="#contact">Contact</a>
@@ -71,9 +71,9 @@
     </header>
 
     <!-- ====== News ====== -->
-    <section id="news">
+    <section id="experience">
       <h2>Experience</h2>
-      <ul class="news" id="news-list"></ul>
+      <ul class="experience" id="experience-list"></ul>
     </section>
 
     <!-- ====== Publications ====== -->
@@ -109,7 +109,7 @@
 -->
 
 <!-- Fallback: Experience (timeline) -->
-<script type="application/json" id="news-data">{
+<script type="application/json" id="experience-data">{
   "items": [
     {"date": "2024-07-01", "end": null, "text": "Professor, Nanjing University of Aeronautics and Astronautics (NUAA), College of Mechanical and Electrical Engineering, China."},
     {"date": "2020-02-01", "end": "2024-05-31", "text": "Research Fellow, National University of Singapore (NUS), Biorobotics Lab, Singapore. PI: Prof. Haoyong YU."},
@@ -160,8 +160,8 @@
 
     // ====== Experience (a.k.a. news timeline) ======
     (async function(){
-      const data = await loadJSON('news-data','/data/experience.json');
-      const list = $('#news-list');
+      const data = await loadJSON('experience-data','/data/experience.json');
+      const list = $('#experience-list');
       if(!data || !Array.isArray(data.items)){
         list.innerHTML = '<li style="color:var(--muted)">No experience entries yet.</li>';
         return;
