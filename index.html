@@ -57,6 +57,7 @@
         <h1>Shuo Ding</h1>
         <p>
           ℹ️ Professor @ Nanjing University of Aeronautics and Astronautics (College of Mechanical and Electrical Engineering), China.<br>
+          🧭 Associate Editor, IEEE Robotics and Automation Letters (RAL).<br>
           🔍 Research: <strong>Exoskeletons</strong>, <strong>Soft robots</strong>, <strong>Humanoid robots</strong>.<br>
           📧 Email: <a href="mailto:dingshuo@nuaa.edu.cn">dingshuo@nuaa.edu.cn</a>
         </p>
@@ -65,7 +66,6 @@
           <a href="#pubs">Publications</a>
           <a href="#projects">Projects</a>
           <a href="#contact">Contact</a>
-          <a href="cv/CV.pdf">CV</a>
         </nav>
       </div>
     </header>
@@ -227,8 +227,7 @@
         return;
       }
       for(const pr of data.items){
-        const card = document.createElement('a');
-        card.href = pr.href || '#';
+        const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
           <img alt="${pr.title||''}" src="${pr.thumb||''}" loading="lazy" onerror="this.style.display='none'">
